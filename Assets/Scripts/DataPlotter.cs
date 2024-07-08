@@ -23,7 +23,8 @@ public class DataPlotter : MonoBehaviour
     public GameObject PointPrefab;
     public GameObject PointHolder;
 
-    public float plotScale = 10;
+    public float plotScale = 6f;
+    public float plotElevation = 0.01f;
 
 
     void Start()
@@ -50,6 +51,17 @@ public class DataPlotter : MonoBehaviour
         float xMin = FindMinValue(xName);
         float yMin = FindMinValue(yName);
         float zMin = FindMinValue(zName);
+        Debug.Log("===Maximuns===");
+        Debug.Log("xMax: " + xMax);
+        Debug.Log("yMax: " + yMax);
+        Debug.Log("zMax: " + zMax);
+        
+    
+        Debug.Log("===Minimuns===");
+        Debug.Log("xMin: " + xMin);
+        Debug.Log("yMin: " + yMin);
+        Debug.Log("zMin: " + zMin);
+
 
         //Loop through Pointlist
         for (var i = 0; i < pointList.Count; i++)
@@ -76,6 +88,10 @@ public class DataPlotter : MonoBehaviour
         dataPoint.GetComponent<Renderer>().material.color =
         new Color(x,y,z, 1.0f);
         }
+
+        // GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+        // cube.transform.position = PointHolder.transform.position;
+        // cube.transform.localScale = new Vector3(plotScale,plotScale, plotScale);
     }
 
     private float FindMaxValue(string columnName)
