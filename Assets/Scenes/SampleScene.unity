@@ -185,7 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LineWidth: 0.005
   m_OverrideInteractorLineLength: 1
-  m_LineLength: 10
+  m_LineLength: 20
   m_AutoAdjustLineLength: 0
   m_MinLineLength: 0.5
   m_UseDistanceToHitAsMaxLineLength: 1
@@ -1645,7 +1645,7 @@ MonoBehaviour:
   zName: 
   PointPrefab: {fileID: 143054389876115519, guid: 0b01c33897a1148ed828d563385fde1a,
     type: 3}
-  PointHolder: {fileID: 1123873109}
+  PointHolder: {fileID: 1018161712}
   plotScale: 10
   plotElevation: 5
 --- !u!4 &343494730
@@ -2379,9 +2379,9 @@ MonoBehaviour:
   m_SmoothPosition: 1
   m_SmoothPositionAmount: 8
   m_TightenPosition: 0.1
-  m_TrackRotation: 0
+  m_TrackRotation: 1
   m_SmoothRotation: 1
-  m_SmoothRotationAmount: 7.51
+  m_SmoothRotationAmount: 3.2
   m_TightenRotation: 0.058
   m_TrackScale: 1
   m_SmoothScale: 0
@@ -2519,7 +2519,7 @@ Transform:
   m_GameObject: {fileID: 1123873109}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 5, y: 22.21, z: 5}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
