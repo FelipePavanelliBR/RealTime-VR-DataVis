@@ -6,38 +6,38 @@ using System;
 
 public class DataPlotter : MonoBehaviour
 {
-    public string inputfile; // name of pathname, no extension
     private List<Dictionary<string, object>> pointList; // will hold data from CSV reader
 
-    // Indices for columns to be assigned
-    public int columnX = 0;
-    public int columnY = 1;
-    public int columnZ = 2;
-
     // Full column names
-    public string xName;
-    public string yName;
-    public string zName;
+    private string xName;
+    private string yName;
+    private string zName;
 
     // The prefab for the data points to be instantiated
     public GameObject PointPrefab;
-    public GameObject PointHolder;
+    public GameObject PlotPrefab;
 
     public float plotScale = 6f;
     public float plotElevation = 0.01f;
 
 
-    void Start()
+    public void CreateNewPlot(string inputfile, int plotID, GameObject plotSpawn, int columnX, int columnY, int columnZ)
     {
         pointList = CSVReader.Read(inputfile);
-        Debug.Log(pointList);
         List<string> columnList = new List<string>(pointList[1].Keys);
-        // Print number of keys (using .count)
-        Debug.Log("There are " + columnList.Count + " columns in CSV");
+        GameObject plotInScene = Instantiate(PlotPrefab, plotSpawn.transform.position, Quaternion.identity);
+        plotInScene.transform.name = plotID + " Plot";
+
+
+        Plot currPlot = new Plot(pointList, columnList, 0, plotScale, plotInScene);
+
         // Assign column name from columnList to Name variables
         xName = columnList[columnX];
         yName = columnList[columnY];
         zName = columnList[columnZ];
+
+
+        currPlot.SetColumnNames(xName, yName, zName);
 
         foreach (string key in columnList)
         Debug.Log("Column name is " + key);
@@ -64,6 +64,7 @@ public class DataPlotter : MonoBehaviour
 
 
         //Loop through Pointlist
+        Debug.Log(pointList.Count);
         for (var i = 0; i < pointList.Count; i++)
         {
         // Get value in poinList at ith "row", in "column" Name, normalize
@@ -72,22 +73,25 @@ public class DataPlotter : MonoBehaviour
         float z = (System.Convert.ToSingle(pointList[i][zName]) - zMin) / (zMax - zMin);
 
         //instantiate the prefab with coordinates defined above
-        GameObject dataPoint = Instantiate(PointPrefab, new Vector3(x, y, z) * plotScale, Quaternion.identity);
-
-        //make dataPoint a child of PointHolder
-        dataPoint.transform.parent = PointHolder.transform;
+        GameObject PointHolder = plotInScene.transform.Find("PointHolder").gameObject; //make dataPoint a child of PointHolder
+        GameObject dataPoint = Instantiate(PointPrefab, new Vector3(x, y, z) * plotScale, Quaternion.identity, PointHolder.transform); 
 
         // Assigns original values to dataPointName
-        string dataPointName = pointList[i][xName] + " " + pointList[i][yName] + " " + pointList[i][zName];
+        string dataPointName =i + " " + pointList[i][xName] + " " + pointList[i][yName] + " " + pointList[i][zName];
 
         // Assigns name to the prefab
         dataPoint.transform.name = dataPointName;
 
 
         // Gets material color and sets it to a new RGBA color we define
-        dataPoint.GetComponent<Renderer>().material.color =
-        new Color(x,y,z, 1.0f);
+        Color c = new Color(x, y, z, 1.0f);
+        dataPoint.GetComponent<Renderer>().material.color = c;
+        
+        DataPoint dp = new DataPoint(x, y, z, dataPointName, i, c);
+        currPlot.AddPointToScene(dp);
         }
+
+        StateManager.Instance.AddPlot(currPlot);
 
         // GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
         // cube.transform.position = PointHolder.transform.position;
