@@ -10,7 +10,7 @@ public class DataPointInteractions : MonoBehaviour
     }
 
     public void SelectPointInPlot(){
-        string plotFullString = this.transform.parent.gameObject.transform.parent.name;
+        string plotFullString = this.transform.parent.gameObject.transform.parent.gameObject.transform.parent.name;
         string dataPointFullString = this.transform.name;
 
         int plotIDSubstringPosition = plotFullString.IndexOf(" ");

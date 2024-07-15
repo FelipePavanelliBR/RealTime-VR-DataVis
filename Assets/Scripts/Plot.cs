@@ -47,14 +47,16 @@ public class Plot
         this.yColumnName = yColumnName;
         this.zColumnName = zColumnName;
 
+        GameObject plotTypeInfoCanvasInScene = plotGameObject.transform.Find("PlotGrabbable").gameObject.transform.Find("PlotTypeInfoCanvas").gameObject;
+
         // Setting column name X
-        plotGameObject.transform.Find("PlotTypeInfoCanvas").gameObject.transform.Find("ColumnXName").gameObject.GetComponent<TextMeshProUGUI>().text = xColumnName;
+        plotTypeInfoCanvasInScene.transform.Find("ColumnXName").gameObject.GetComponent<TextMeshProUGUI>().text = xColumnName;
 
         // Setting column name Y
-        plotGameObject.transform.Find("PlotTypeInfoCanvas").gameObject.transform.Find("ColumnYName").gameObject.GetComponent<TextMeshProUGUI>().text = yColumnName;
+        plotTypeInfoCanvasInScene.transform.Find("ColumnYName").gameObject.GetComponent<TextMeshProUGUI>().text = yColumnName;
 
         // Setting column name Z
-        plotGameObject.transform.Find("PlotTypeInfoCanvas").gameObject.transform.Find("ColumnZName").gameObject.GetComponent<TextMeshProUGUI>().text = zColumnName;
+        plotTypeInfoCanvasInScene.transform.Find("ColumnZName").gameObject.GetComponent<TextMeshProUGUI>().text = zColumnName;
 
     }
 
@@ -65,11 +67,12 @@ public class Plot
         {
             columnsString += key + " | ";
         }
-        plotGameObject.transform.Find("DataPointInfoCanvas").gameObject.transform.Find("AllColumnNames").gameObject.GetComponent<TextMeshProUGUI>().text = columnsString;
+        plotGameObject.transform.Find("PlotGrabbable").gameObject.transform.Find("DataPointInfoCanvas").gameObject.transform.Find("AllColumnNames").gameObject.GetComponent<TextMeshProUGUI>().text = columnsString;
+        Debug.Log("Setting all columns UI for plot " + plotID);
     }
 
     public string GetPointInfo(int dataPointID){
-        Debug.Log("Getting point info for point " + dataPointID);
+        // Debug.Log("Getting point info for point " + dataPointID);
 
         string pointInfo = "";
         foreach (string key in columnList)

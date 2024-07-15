@@ -54,7 +54,7 @@ public class StateManager : MonoBehaviour
     public void SelectPoint(int plotID, int dataPointID)
     {
         Debug.Log("Selected point " + dataPointID + " in plot " + plotID);
-        plots[plotID].GetPlotObj().transform.Find("DataPointInfoCanvas").gameObject.transform.Find("DataPointStats").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = plots[plotID].GetPointInfo(dataPointID);
+        plots[plotID].GetPlotObj().transform.Find("PlotGrabbable").gameObject.transform.Find("DataPointInfoCanvas").gameObject.transform.Find("DataPointStats").gameObject.GetComponent<TMPro.TextMeshProUGUI>().text = plots[plotID].GetPointInfo(dataPointID);
     }
 
 }
