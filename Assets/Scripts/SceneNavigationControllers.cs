@@ -13,6 +13,10 @@ public class SceneNavigationControllers : MonoBehaviour
     private float currentRotationY;
     private float rotationVelocity;
 
+
+    public Canvas PlotTypeInfoCanvas;
+    public Canvas DataPointInfoCanvas;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,5 +35,11 @@ public class SceneNavigationControllers : MonoBehaviour
 
         currentRotationY = Mathf.SmoothDampAngle(currentRotationY, targetRotationY, ref rotationVelocity, smoothTime);
         block.transform.eulerAngles = new Vector3(block.transform.eulerAngles.x, currentRotationY, block.transform.eulerAngles.z);
+        
+
+        // LookAt method for inverted Canvas; Making the cameras "look away", so it's always facing the user
+        PlotTypeInfoCanvas.transform.rotation = Quaternion.LookRotation(PlotTypeInfoCanvas.transform.position - Camera.main.transform.position);
+        DataPointInfoCanvas.transform.rotation = Quaternion.LookRotation(DataPointInfoCanvas.transform.position - Camera.main.transform.position);
+
     }
 }
