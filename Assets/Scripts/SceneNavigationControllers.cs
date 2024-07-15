@@ -24,7 +24,7 @@ public class SceneNavigationControllers : MonoBehaviour
     void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal_Primary");
-        if (horizontalInput != 0)
+        if (horizontalInput > 0.9 || horizontalInput < -0.9)
         {
             targetRotationY += horizontalInput * rotateSpeed;
         }

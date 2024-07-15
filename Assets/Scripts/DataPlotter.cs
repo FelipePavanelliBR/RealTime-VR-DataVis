@@ -73,9 +73,13 @@ public class DataPlotter : MonoBehaviour
         float z = (System.Convert.ToSingle(pointList[i][zName]) - zMin) / (zMax - zMin);
 
         //instantiate the prefab with coordinates defined above
-        GameObject PointHolder = plotInScene.transform.Find("PointHolder").gameObject; //make dataPoint a child of PointHolder
-        GameObject dataPoint = Instantiate(PointPrefab, new Vector3(x, y, z) * plotScale, Quaternion.identity, PointHolder.transform); 
-
+        
+        GameObject dataPoint = Instantiate(PointPrefab, new Vector3(x, y, z) * plotScale, Quaternion.identity); 
+        
+        //make dataPoint a child of PointHolder
+        GameObject PointHolder = plotInScene.transform.Find("PointHolder").gameObject;
+        dataPoint.transform.parent = PointHolder.transform;  
+        
         // Assigns original values to dataPointName
         string dataPointName =i + " " + pointList[i][xName] + " " + pointList[i][yName] + " " + pointList[i][zName];
 
